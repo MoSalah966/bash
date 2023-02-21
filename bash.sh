@@ -403,8 +403,13 @@ done
 
 BATTERY_S=`acpi-b`
 read -a Battery_value <<< $BATTERY_S
+echo ${Battery_value[@]}
 val=${Battery_value[3]::-1}
-
+temp=`echo $val | grep "%"`
+if [ $? -eq 0 ]
+then
+    val=${val::-1}
+fi
 while [ true ]
 do
     if [ ${val} -lt 25]
