@@ -399,3 +399,24 @@ do
     esac
 done
 -------------------------------------------------------------------
+#!/bin/bash
+
+BATTERY_S=`acpi-b`
+read -a Battery_value <<< $BATTERY_S
+val=${Battery_value[3]::-1}
+
+while [ true ]
+do
+    if [ ${val} -lt 25]
+    then
+        notify-send "please take care your battery is less than 25"
+        notify-send "please put your charger"
+        sleep 5
+        acpi -a | grep "on"
+        if [ $? -eq 0 ]
+        then 
+            notify-send "thanks for charging and please run the script again"
+            break
+        fi
+    fi
+done
