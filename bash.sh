@@ -553,4 +553,8 @@ esac
 done
 # command is ./scriptname.sh -a alpha -b -c car
 ------------------------------------------------------------
+# to make the arg without - before it the first arg
+shift $((OPTIND-1))
+echo " the another arg is $1"
+--------------------------------------------------------
 
