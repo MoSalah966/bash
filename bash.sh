@@ -485,4 +485,72 @@ do
     echo ${line} # or echo ${line} | grep ^${key}  any thing start with what inside key variable that was equal $1 
 done < ${cmdlist}  #here we have a file with commands and we need to do these commands line by line
 #note: when i run the script > ./cmd command  << command here is one of the commands inside the script
+-------------------------------------------------------------------------------------------------------------------------
+alias uses
+alias crtf=.//home/salah/bash_basics/class_generator # run this path when i wrote crtf
+-----------------------------------------------------------------------
+declare --help # to help you know the options with declare command
+declare -l lowerstring
+declare -u upperstring
+declare -a array
+declare -A dictionary
+
+lowerstring="ABC"
+upperstring="abc"
+
+echo $lowerstring    # >> abc  
+dict["ssid"]="test"
+dict["pass"]="123"
+echo ${dict["ssid"]}
+echo ${dict["pass"]}
+-----------------------------------------------------------------
+ps | while # through the ps result inside a while
+read pid tty time cmd 
+do
+    echo $pid working with $cmd 
+done
+------------------------------------
+>>indirect acces<<
+y=name
+name="salah"
+echo $y
+echo $name
+echo ${!y} # will echo salah for y and not name
+----------------------------------------------------
+>>string delete<<
+name="mohamed salah mohamed"
+# ${var#prefix}
+# ${var%postfix}
+echo ${name#*salah}  # > will print last name only mohamed  >> instead of echo $name | cut -d " " -f 1 
+echo ${name%salah*}  # > print first name mohamed
+-----------------------------------------------------------------------------------------
+y=${x:- "Embedded Linux"} # if x is not defined, make y= embedded linux
+echo $x   # no value
+echo $y   # y = embedded linux
+---------------------------------------
+y=${x:= "Embedded Linux"} 
+echo $x  
+echo $y  # will give x and y same value
+-----------------------------------------
+man getopt
+-------------------
+while getopts "a:bc:" opt ;
+do
+case $opt in
+    a)
+        echo "the value of a is ${OPTARG}"
+    ;;
+    b)
+        echo "welcome"
+    ;;
+    c)
+        echo " the value of c is ${OPTARG}"
+    ;;
+    *)
+        echo " usage : [a b c] -> no options "
+    ;;  
+esac
+done
+# command is ./scriptname.sh -a alpha -b -c car
+------------------------------------------------------------
 
