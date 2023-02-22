@@ -425,3 +425,64 @@ do
         fi
     fi
 done
+------------------------------------------------------------------------------------------
+#!/bin/bash
+# script for monitoring power on and off
+case $1 in
+start)
+        uptime >> /home/root/time.txt
+;;
+esac
+# don't forget chmod 777
+------------------------------------
+>>>include file inside file<<<
+#!/bin/bash
+file=`cat text.txt`
+echo ${file}
+#if you have a text.txt, it will cat its content
+------------------------------------------------------
+NOTE: file=$() = file=``
+------------------------
+we can replace cat in the last ex with <
+file=$(<text.txt) = file=`cat text.txt`
+----------------------------------------------
+>>include/read file line by line<<
+while read line
+do
+    echo ${line}
+    # you can put if then here also like if [ -z ${line} ] then echo "thanks" elif [ ${line} = salah ]  then  and echo "hello salah" fi
+done <text.txt
+-------------------------------------------------------------------------------------------------------------------------------------------
+>>import script into script
+# if the first file has export=blabla
+source file.sh
+echo $hi
+------------------------------------------
+# tell me if file exist and do something
+if [ -f text.txt ]
+then 
+    echo "a wise man once said **** manga"
+fi
+----------------------------------------------------
+----------------------------------------------------
+>>>run shortcut for commands inside a bash script<<<
+#!/bin/bash
+# if we have a file called cmdlist
+cmdlist=~/.cmdlist
+exe=/tmp/tempcmd  #after restart.. all files under /tmp deleted automatically
+if [ $# == 0 ]
+then
+    echo "Usage cmd <command>"
+    echo -e "\n your commands"
+    cat ${cmdlist}
+fi
+
+key=$1
+cmd=""
+
+while read line 
+do 
+    echo ${line} # or echo ${line} | grep ^${key}  any thing start with what inside key variable that was equal $1 
+done < ${cmdlist}  #here we have a file with commands and we need to do these commands line by line
+#note: when i run the script > ./cmd command  << command here is one of the commands inside the script
+
